@@ -1,0 +1,45 @@
+{
+    "name": "bedrock-innovations/managed-wp",
+    "description": "Quickly add the required configs and plugins for managed hosting customers",
+    "type": "metapackage",
+    "license": "MIT",
+    "authors": [
+        {"name": "Damashe Thomas", "email": "dt@bedrockinnovations.com"}
+    ],
+    "repositories": [
+		{"type": "composer", "url": "https://wpackagist.org", "only": ["wpackagist-theme/*", "wpackagist-plugin/*"]}
+    ],
+    "require": {
+        "composer/installers": "~1.0",
+        "aws/aws-sdk-php": "^3.212",
+        "humanmade/aws-ses-wp-mail": "^1.3",
+        "wpackagist-theme/generatepress": "^3.1",
+        "wpackagist-plugin/wp-fail2ban": "4.4.0.4",
+        "roots/bedrock-autoloader": "^1.0"
+    },
+    "config": {
+      "optimize-autoloader": true,
+      "preferred-install": "dist",
+      "allow-plugins": {
+        "composer/installers": true,
+        "roots/wordpress-core-installer": true
+      }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+      "installer-paths": {
+        "files/wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin", "humanmade/aws-ses-wp-mail"],
+        "files/wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+        "files/wp-content/themes/{$name}/": ["type:wordpress-theme"]
+      }
+    },
+    "scripts": {
+        "post-install-cmd": [
+          "mv bedrock-autoloader.php files/wp-content/mu-plugins"
+        ],
+      "post-root-package-install": [
+        "php -r \"copy('.env.example', '.env');\""
+      ]
+    }
+  }
