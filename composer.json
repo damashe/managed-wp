@@ -36,7 +36,8 @@
     },
     "scripts": {
         "post-install-cmd": [
-          "mv bedrock-autoloader.php files/wp-content/mu-plugins"
+          "mv bedrock-autoloader.php files/wp-content/mu-plugins",
+        "mv files/wp-config.php ."  
         ],
       "post-root-package-install": [
         "php -r \"copy('.env.example', '.env');\""
